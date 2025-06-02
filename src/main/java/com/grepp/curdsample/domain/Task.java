@@ -1,7 +1,10 @@
 package com.grepp.curdsample.domain;
 
+import com.grepp.curdsample.dto.TaskDto;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -10,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "tasks")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Task {
 
     @Id
@@ -31,8 +35,34 @@ public class Task {
     private LocalDate startTime;
     private LocalDate endTime;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public void update(TaskDto dto) {
+
+        this.title = dto.getTitle();
+        this.description = dto.getDescription();
+        this.priority = dto.getPriority();
+        this.completeStatus = dto.isCompleteStatus();
+
+        this.startTime = dto.getStartTime();
+        this.endTime = dto.getEndTime();
+
+    }
+
+    public static Task of(TaskDto taskDto) {
+        Task task = new Task();
+
+        task.code = taskDto.getCode();
+        task.title = taskDto.getTitle();
+        task.description = taskDto.getDescription();
+        task.priority = taskDto.getPriority();
+        task.completeStatus = taskDto.isCompleteStatus();
+        task.startTime = taskDto.getStartTime();
+        task.endTime = taskDto.getEndTime();
+
+        return task;
+    }
 
 
 }
