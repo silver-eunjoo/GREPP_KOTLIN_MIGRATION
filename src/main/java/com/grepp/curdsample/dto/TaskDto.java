@@ -14,7 +14,6 @@ import java.time.LocalDate;
 
 
 @Data
-@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskDto {

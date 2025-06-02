@@ -1,6 +1,7 @@
 package com.grepp.curdsample.util;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TimeFormatter {
@@ -13,6 +14,10 @@ public class TimeFormatter {
     }
 
     public static String convertToStr(LocalDate localDate) {
+        return localDate.format(pattern);
+    }
+
+    public static String convertToStr(LocalDateTime localDate) {
         return localDate.format(pattern);
     }
 

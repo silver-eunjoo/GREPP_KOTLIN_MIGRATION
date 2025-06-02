@@ -1,7 +1,9 @@
 package com.grepp.curdsample.view;
 
 import com.grepp.curdsample.app.TaskService;
+import com.grepp.curdsample.dto.TaskDescription;
 import com.grepp.curdsample.dto.TaskDto;
+import com.grepp.curdsample.dto.TodayTaskDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 
@@ -25,8 +29,16 @@ public class TaskViewController {
 
     @GetMapping("/")
     public String showIndex(Model model) {
-//        model.addAttribute("tasks", new ArrayList<TaskDto>());
+        List<TaskDto> result = taskService.getTasksDutToToday();
+        model.addAttribute("tasks", TodayTaskDto.from(result));
         return "index";
+    }
+
+    @GetMapping("/tasks")
+    public String showList(Model model, Pageable pageable) {
+
+
+        return "tasks/list";
     }
 
     @GetMapping("/tasks/append")
@@ -45,9 +57,25 @@ public class TaskViewController {
             return "tasks/add";
         }
 
-        taskService.saveTask(req);
+        TaskDto taskDto = taskService.saveTask(req);
+        log.info("taskDto = {}", taskDto);
 
         return "redirect:/tasks/append";
     }
+
+
+    @GetMapping("/tasks/{code}")
+    public String showTaskDetail(
+            @PathVariable(name = "code") String code,
+            Model model
+    ) {
+        TaskDescription description = taskService.getDescriptionByCode(code);
+        log.info("description = {}", description);
+        model.addAttribute("task", description);
+        return "tasks/detail";
+    }
+
+
+
 
 }

@@ -2,19 +2,35 @@ package com.grepp.curdsample.app;
 
 import com.grepp.curdsample.dao.TaskRepository;
 import com.grepp.curdsample.domain.Task;
+import com.grepp.curdsample.dto.TaskDescription;
 import com.grepp.curdsample.dto.TaskDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class TaskService {
 
     private final TaskRepository taskRepository;
+
+    public List<TaskDto> getTasksDutToToday() {
+        return taskRepository.findTenTasksDueToToday()
+                .stream()
+                .map(TaskDto::from)
+                .toList();
+    }
+
+    public TaskDescription getDescriptionByCode(String code) {
+        return TaskDescription.from(findByCode(code));
+    }
 
     @Transactional
     public TaskDto saveTask(TaskDto taskDto) {
