@@ -21,7 +21,7 @@ public class TaskDescription {
     private boolean completeStatus;
 
     private String startDate;
-    private String endDate;
+    private String dueDate;
 
     private String createdAt;
     private String updatedAt;
@@ -38,6 +38,10 @@ public class TaskDescription {
                 TimeFormatter.convertToStr(task.getCreatedAt()),
                 TimeFormatter.convertToStr(task.getUpdatedAt())
         );
+    }
+
+    public String getPriorityLevel() {
+        return PriorityResolver.resolve(priority);
     }
 
 

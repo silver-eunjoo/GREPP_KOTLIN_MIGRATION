@@ -31,6 +31,7 @@ public class Task {
 
     private Integer priority;
 
+//    @Setter
     private boolean completeStatus = false;
 
     private LocalDate startTime;
@@ -38,6 +39,10 @@ public class Task {
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public void updateCheck() {
+        this.completeStatus = !this.completeStatus;
+    }
 
     public void update(TaskDto dto) {
 
