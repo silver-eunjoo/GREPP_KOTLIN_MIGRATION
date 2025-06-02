@@ -4,8 +4,12 @@ import com.grepp.curdsample.dao.TaskRepository;
 import com.grepp.curdsample.domain.Task;
 import com.grepp.curdsample.dto.TaskDescription;
 import com.grepp.curdsample.dto.TaskDto;
+import com.grepp.curdsample.dto.TaskPageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +24,26 @@ import java.util.stream.Collectors;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+
+    public TaskPageDto getTaskList(int pageNum) {
+
+        final int SIZE = 5;
+
+        PageRequest pageReq = PageRequest.of(pageNum, SIZE, Sort.Direction.DESC, "createdAt");
+        Page<Task> tasks = taskRepository.findAll(pageReq);
+
+        return TaskPageDto.builder()
+                .hasNext(tasks.hasNext())
+                .data(tasks.stream().map(TaskDto::from).toList())
+                .build();
+
+//        return new TaskPageDto(
+//                tasks.hasNext(),
+//                tasks.stream().map(TaskDto::from)
+//                    .toList()
+//        );
+
+    }
 
     public List<TaskDto> getTasksDutToToday() {
         return taskRepository.findTenTasksDueToToday()

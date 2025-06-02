@@ -59,8 +59,8 @@ public class Task {
         task.description = taskDto.getDescription();
         task.priority = taskDto.getPriority();
         task.completeStatus = taskDto.isCompleteStatus();
-//        task.startTime = taskDto.getStartTime();
-//        task.endTime = taskDto.getEndTime();
+        task.startTime = TimeFormatter.convertToLocalDate(taskDto.getStartTime());
+        task.endTime = TimeFormatter.convertToLocalDate(taskDto.getEndTime());
 
         return task;
     }

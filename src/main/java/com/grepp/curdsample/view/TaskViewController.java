@@ -3,10 +3,12 @@ package com.grepp.curdsample.view;
 import com.grepp.curdsample.app.TaskService;
 import com.grepp.curdsample.dto.TaskDescription;
 import com.grepp.curdsample.dto.TaskDto;
+import com.grepp.curdsample.dto.TaskPageDto;
 import com.grepp.curdsample.dto.TodayTaskDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 
@@ -36,9 +37,16 @@ public class TaskViewController {
 
     @GetMapping("/tasks")
     public String showList(Model model, Pageable pageable) {
-
-
+        TaskPageDto tasks = taskService.getTaskList(pageable.getPageNumber());
+        model.addAttribute("tasks", tasks);
         return "tasks/list";
+    }
+
+    @GetMapping("/tasks/more") //
+    public String loadMoreTasks(int page, Model model) {
+        TaskPageDto taskList = taskService.getTaskList(page);
+        model.addAttribute("tasks", taskList);
+        return "fragments/page_parts :: taskPagePart";
     }
 
     @GetMapping("/tasks/append")

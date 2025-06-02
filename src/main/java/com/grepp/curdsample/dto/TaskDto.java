@@ -1,6 +1,7 @@
 package com.grepp.curdsample.dto;
 
 import com.grepp.curdsample.domain.Task;
+import com.grepp.curdsample.util.PriorityResolver;
 import com.grepp.curdsample.util.TimeFormatter;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -52,6 +53,10 @@ public class TaskDto {
 
         return taskDto;
 
+    }
+
+    public String getPriorityLevel() {
+        return PriorityResolver.resolve(priority);
     }
 
 
