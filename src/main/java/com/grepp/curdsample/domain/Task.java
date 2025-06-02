@@ -1,6 +1,7 @@
 package com.grepp.curdsample.domain;
 
 import com.grepp.curdsample.dto.TaskDto;
+import com.grepp.curdsample.util.TimeFormatter;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -45,8 +46,8 @@ public class Task {
         this.priority = dto.getPriority();
         this.completeStatus = dto.isCompleteStatus();
 
-        this.startTime = dto.getStartTime();
-        this.endTime = dto.getEndTime();
+        this.startTime = TimeFormatter.convertToLocalDate(dto.getStartTime());
+        this.endTime = TimeFormatter.convertToLocalDate(dto.getEndTime());
 
     }
 
@@ -58,8 +59,8 @@ public class Task {
         task.description = taskDto.getDescription();
         task.priority = taskDto.getPriority();
         task.completeStatus = taskDto.isCompleteStatus();
-        task.startTime = taskDto.getStartTime();
-        task.endTime = taskDto.getEndTime();
+//        task.startTime = taskDto.getStartTime();
+//        task.endTime = taskDto.getEndTime();
 
         return task;
     }
