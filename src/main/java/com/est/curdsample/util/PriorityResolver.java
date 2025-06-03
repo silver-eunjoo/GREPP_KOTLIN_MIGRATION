@@ -1,4 +1,4 @@
-package com.grepp.curdsample.util;
+package com.est.curdsample.util;
 
 public class PriorityResolver {
 

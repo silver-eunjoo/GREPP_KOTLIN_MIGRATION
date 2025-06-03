@@ -1,4 +1,4 @@
-package com.grepp.curdsample.dto;
+package com.est.curdsample.dto;
 
 import lombok.Builder;
 import lombok.Getter;

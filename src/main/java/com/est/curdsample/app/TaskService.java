@@ -1,23 +1,19 @@
-package com.grepp.curdsample.app;
+package com.est.curdsample.app;
 
-import com.grepp.curdsample.dao.TaskRepository;
-import com.grepp.curdsample.domain.Task;
-import com.grepp.curdsample.dto.TaskDescription;
-import com.grepp.curdsample.dto.TaskDto;
-import com.grepp.curdsample.dto.TaskPageDto;
+import com.est.curdsample.dao.TaskRepository;
+import com.est.curdsample.domain.Task;
+import com.est.curdsample.dto.TaskDescription;
+import com.est.curdsample.dto.TaskDto;
+import com.est.curdsample.dto.TaskPageDto;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -34,25 +30,17 @@ public class TaskService {
         return TaskDto.from(findTask);
     }
 
-
     public TaskPageDto getTaskList(int pageNum) {
-
         final int SIZE = 5;
 
         PageRequest pageReq = PageRequest.of(pageNum, SIZE, Sort.Direction.DESC, "createdAt");
         Page<Task> tasks = taskRepository.findAll(pageReq);
 
-        return TaskPageDto.builder()
-                .hasNext(tasks.hasNext())
-                .data(tasks.stream().map(TaskDto::from).toList())
-                .build();
-
-//        return new TaskPageDto(
-//                tasks.hasNext(),
-//                tasks.stream().map(TaskDto::from)
-//                    .toList()
-//        );
-
+        return new TaskPageDto(
+                tasks.hasNext(),
+                tasks.stream().map(TaskDto::from)
+                .toList()
+        );
     }
 
     public List<TaskDto> getTasksDutToToday() {
@@ -66,16 +54,17 @@ public class TaskService {
         return TaskDescription.from(findByCode(code));
     }
 
+
     @Transactional
     public TaskDto saveTask(TaskDto taskDto) {
+
         taskDto.setCode(genCode());
         Task task = Task.of(taskDto);
-        taskRepository.save(task);
-        return taskDto;
-    }
+//        Task task = Task.of(taskDto.setCode(genCode()));
 
-    private Task findById(Long id) {
-        return taskRepository.findById(id).orElse(null);
+        taskRepository.save(task);
+//        return TaskDto.from(task);
+        return taskDto;
     }
 
     private Task findByCode(String code) {
@@ -83,13 +72,14 @@ public class TaskService {
     }
 
     private String genCode() {
+
         return UUID.randomUUID().toString();
     }
 
     /**
      * 할일의 코드를 이용해서 {@link TaskDto}를 반환하는 메서드입니다.
      *
-     * @param code 할일을 식별하기 위한 코드
+     * @param code 할일을 식별하기 위한 코드 (Code) - 자체 정의 코드
      * @return {@link TaskDto}
      */
     public TaskDto getByCode(String code) {
@@ -114,6 +104,4 @@ public class TaskService {
 
         return taskDto;
     }
-
-
 }
