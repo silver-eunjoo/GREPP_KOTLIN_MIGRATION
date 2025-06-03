@@ -1,5 +1,6 @@
 package com.est.curdsample.domain
 
+import com.est.curdsample.dto.TaskDescription
 import com.est.curdsample.dto.TaskDto
 import com.est.curdsample.util.TimeFormatter
 import jakarta.persistence.*
@@ -51,21 +52,30 @@ class Task(
         this.endTime = TimeFormatter.convertToLocalDate(dto.endTime)
         this.updatedAt = LocalDateTime.now()
     }
-
-    companion object {
-        @JvmStatic
-        fun of(taskDto: TaskDto): Task {
-            return Task(
-                code = taskDto.code,
-                title = taskDto.title,
-                description = taskDto.description,
-                priority = taskDto.priority,
-                completeStatus = taskDto.completeStatus,
-                startTime = TimeFormatter.convertToLocalDate(taskDto.startTime),
-                endTime = TimeFormatter.convertToLocalDate(taskDto.endTime),
-            )
-        }
-    }
 }
 
-fun Task.
+fun Task.toDto() : TaskDto {
+    return TaskDto(
+        code = this.code,
+        title = this.title,
+        description = this.description,
+        priority = this.priority,
+        completeStatus = this.completeStatus,
+        startTime = TimeFormatter.convertToStr(this.startTime),
+        endTime = TimeFormatter.convertToStr(this.endTime),
+    )
+}
+
+fun Task.toDescription() : TaskDescription {
+    return TaskDescription(
+        code = this.code,
+        title = this.title,
+        description = this.description,
+        priority = this.priority,
+        completeStatus = this.completeStatus,
+        startDate = TimeFormatter.convertToStr(this.startTime),
+        dueDate = TimeFormatter.convertToStr(this.endTime),
+        createdAt = this.createdAt,
+        updatedAt = this.updatedAt
+    )
+}

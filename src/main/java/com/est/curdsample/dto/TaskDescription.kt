@@ -8,15 +8,15 @@ import lombok.Data
 import lombok.NoArgsConstructor
 
 data class TaskDescription(
-    var code: String? = null,
-    var title: String? = null,
-    var description: String? = null,
-    var priority: Int? = null,
-    var completeStatus: Boolean = false,
-    var startDate: String? = null,
-    var dueDate: String? = null,
-    var createdAt: String? = null,
-    var updatedAt: String? = null
+    val code: String,
+    val title: String,
+    val description: String,
+    val priority: Int,
+    val completeStatus: Boolean,
+    val startDate: String,
+    val dueDate: String,
+    val createdAt: String,
+    val updatedAt: String
 ) {
 
     val priorityLevel: String
