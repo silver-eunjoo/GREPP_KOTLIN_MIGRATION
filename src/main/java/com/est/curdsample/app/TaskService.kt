@@ -21,7 +21,7 @@ class TaskService(
     private val taskRepository: TaskRepository
 ) {
 
-    fun getTasksDueToToday() : List<TaskDto?> {
+    fun getTasksDueToToday() : List<TaskDto> {
         return taskRepository.findTenTasksDueToToday().map { it.toDto() }
     }
 
