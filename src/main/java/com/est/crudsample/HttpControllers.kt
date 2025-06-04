@@ -1,7 +1,5 @@
 package com.est.crudsample
 
-import com.est.crudsample.dto.GeneralApiResponse
-import com.est.crudsample.dto.TaskDto
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
