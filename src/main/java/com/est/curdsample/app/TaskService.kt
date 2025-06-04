@@ -63,7 +63,7 @@ class TaskService(
     }
 
     private fun findByCode(code: String): Task {
-        return taskRepository.findByCode(code) ?: throw TaskNotFoundException("${code}에 해당하는 작업을 찾을 수 없습니다.")
+        return taskRepository.findByCode(code) ?: throw TaskNotFoundException()
     }
 
     /**
