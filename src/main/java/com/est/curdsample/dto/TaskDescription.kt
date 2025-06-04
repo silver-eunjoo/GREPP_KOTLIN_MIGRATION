@@ -1,11 +1,8 @@
 package com.est.curdsample.dto
 
 import com.est.curdsample.domain.Task
-import com.est.curdsample.util.PriorityResolver
-import com.est.curdsample.util.TimeFormatter
-import lombok.AllArgsConstructor
-import lombok.Data
-import lombok.NoArgsConstructor
+import com.est.curdsample.util.convertToStr
+import com.est.curdsample.util.priorityResolve
 
 data class TaskDescription(
     val code: String,
@@ -20,7 +17,7 @@ data class TaskDescription(
 ) {
 
     val priorityLevel: String
-        get() = PriorityResolver.resolve(priority)
+        get() = priorityResolve(priority)
 
     companion object {
         @JvmStatic
@@ -31,10 +28,10 @@ data class TaskDescription(
                 task.description,
                 task.priority,
                 task.completeStatus,
-                TimeFormatter.convertToStr(task.startTime),
-                TimeFormatter.convertToStr(task.endTime),
-                TimeFormatter.convertToStr(task.createdAt),
-                TimeFormatter.convertToStr(task.updatedAt)
+                convertToStr(task.startTime),
+                convertToStr(task.endTime),
+                convertToStr(task.createdAt),
+                convertToStr(task.updatedAt)
             )
         }
     }

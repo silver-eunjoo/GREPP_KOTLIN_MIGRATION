@@ -8,28 +8,28 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/tasks")
-class TaskApiController {
-    private val taskService: TaskService? = null
+class TaskApiController(
+    private val taskService: TaskService
+) {
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{code}/status")
     fun updateTaskStatus(@PathVariable code: String): GeneralApiResponse<TaskDto> {
-        val taskDto = taskService!!.checkTaskByCode(code)
-        return GeneralApiResponse.< TaskDto > builder < TaskDto ? > ()
-            .data(taskDto)
-            .msg("성공적으로 반영하였습니다!")
-            .build()
+        val taskDto = taskService.checkTaskByCode(code)
+        return GeneralApiResponse(
+            data = taskDto,
+            msg = "성공적으로 반영되었습니다!"
+        )
     }
 
     @DeleteMapping("/{code}")
-    @ResponseStatus(HttpStatus.NO_CONTENT) //    public ResponseEntity<Void> deleteTask(@PathVariable String code) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteTask(@PathVariable code: String): GeneralApiResponse<Void> {
-        taskService!!.removeByCode(code)
-        //        return ResponseEntity.noContent().build();
-        return GeneralApiResponse.< Void > builder < java . lang . Void ? > ()
-            .msg("성공적으로 삭제했습니다!")
-            .build()
+        taskService.removeByCode(code)
+        return GeneralApiResponse(
+            data = null,
+            msg = "성공적으로 삭제했습니다!"
+        )
     }
 }
