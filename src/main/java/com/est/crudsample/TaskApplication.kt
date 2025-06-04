@@ -1,14 +1,5 @@
-package com.est.crudsample.app
+package com.est.crudsample
 
-import com.est.crudsample.dao.TaskRepository
-import com.est.crudsample.domain.Task
-import com.est.crudsample.domain.toDescription
-import com.est.crudsample.domain.toDto
-import com.est.crudsample.dto.TaskDescription
-import com.est.crudsample.dto.TaskDto
-import com.est.crudsample.dto.TaskPageDto
-import com.est.crudsample.dto.toEntity
-import com.est.crudsample.exception.TaskNotFoundException
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service

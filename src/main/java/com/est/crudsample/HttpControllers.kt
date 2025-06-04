@@ -1,6 +1,5 @@
-package com.est.crudsample.api
+package com.est.crudsample
 
-import com.est.crudsample.app.TaskService
 import com.est.crudsample.dto.GeneralApiResponse
 import com.est.crudsample.dto.TaskDto
 import org.springframework.http.HttpStatus
