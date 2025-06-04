@@ -1,6 +1,4 @@
-package com.est.curdsample.dto
-
-import java.util.stream.Collectors
+package com.est.crudsample.dto
 
 data class TodayTaskDto(
     val uncompletedTasks: List<TaskDto>,

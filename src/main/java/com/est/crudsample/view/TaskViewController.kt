@@ -1,8 +1,8 @@
-package com.est.curdsample.view
+package com.est.crudsample.view
 
-import com.est.curdsample.app.TaskService
-import com.est.curdsample.dto.TaskDto
-import com.est.curdsample.dto.toTodayTasks
+import com.est.crudsample.app.TaskService
+import com.est.crudsample.dto.TaskDto
+import com.est.crudsample.dto.toTodayTasks
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Pageable

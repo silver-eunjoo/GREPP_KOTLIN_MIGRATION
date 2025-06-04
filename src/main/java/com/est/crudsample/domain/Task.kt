@@ -1,9 +1,10 @@
-package com.est.curdsample.domain
+package com.est.crudsample.domain
 
-import com.est.curdsample.dto.TaskDescription
-import com.est.curdsample.dto.TaskDto
-import com.est.curdsample.util.convertToLocalDate
-import com.est.curdsample.util.convertToStr
+import com.est.crudsample.dto.TaskDescription
+import com.est.crudsample.dto.TaskDto
+import com.est.crudsample.util.convertToLocalDate
+import com.est.crudsample.util.convertToStr
+import com.est.crudsample.util.priorityResolve
 import jakarta.persistence.*
 import lombok.Setter
 import java.time.LocalDate
@@ -64,6 +65,7 @@ fun Task.toDto() : TaskDto {
         completeStatus = this.completeStatus,
         startTime = convertToStr(this.startTime),
         endTime = convertToStr(this.endTime),
+        priorityLevel = priorityResolve(this.priority)
     )
 }
 
@@ -77,6 +79,7 @@ fun Task.toDescription() : TaskDescription {
         startDate = convertToStr(this.startTime),
         dueDate = convertToStr(this.endTime),
         createdAt = convertToStr(this.createdAt),
-        updatedAt = convertToStr(this.updatedAt)
+        updatedAt = convertToStr(this.updatedAt),
+        priorityLevel = priorityResolve(this.priority)
     )
 }

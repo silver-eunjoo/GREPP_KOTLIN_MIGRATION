@@ -1,4 +1,4 @@
-package com.est.curdsample.dto
+package com.est.crudsample.dto
 
 data class TaskPageDto(
     val hasNext: Boolean,

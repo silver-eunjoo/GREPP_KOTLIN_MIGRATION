@@ -1,8 +1,7 @@
-package com.est.curdsample.dto
+package com.est.crudsample.dto
 
-import com.est.curdsample.domain.Task
-import com.est.curdsample.util.convertToLocalDate
-import com.est.curdsample.util.priorityResolve
+import com.est.crudsample.domain.Task
+import com.est.crudsample.util.convertToLocalDate
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
@@ -17,6 +16,7 @@ data class TaskDto(
 
     @field: Min(value = 0)
     val priority: Int = 0,
+    val priorityLevel: String = "",
 
     val completeStatus: Boolean = false,
 
@@ -34,12 +34,7 @@ data class TaskDto(
     @field: NotBlank(message = "날짜는 반드시 들어있어야 합니다")
     val endTime: String = ""
 
-) {
-
-    val priorityLevel: String
-        get() = priorityResolve(priority)
-
-}
+)
 
 fun TaskDto.toEntity(): Task {
     return Task(

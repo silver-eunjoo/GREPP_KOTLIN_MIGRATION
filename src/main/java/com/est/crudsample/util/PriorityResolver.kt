@@ -1,4 +1,4 @@
-package com.est.curdsample.util
+package com.est.crudsample.util
 
 fun priorityResolve(priority: Int): String {
     return when (priority) {

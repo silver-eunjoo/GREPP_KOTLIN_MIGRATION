@@ -1,7 +1,4 @@
-package com.est.curdsample.dto
-
-import lombok.Builder
-import lombok.Getter
+package com.est.crudsample.dto
 
 data class GeneralApiResponse<T>(
     val data: T? = null,

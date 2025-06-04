@@ -1,4 +1,4 @@
-package com.est.curdsample.util
+package com.est.crudsample.util
 
 import java.time.LocalDate
 import java.time.LocalDateTime
